@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>House Price Prediction</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: url("{{ url_for('static', filename='house7.jpg') }}")
+          no-repeat center center/cover;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        font-family: "Arial", sans-serif;
+      }
+      .container {
+        max-width: 800px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      }
+      h2 {
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-weight: bold;
+      }
+      .form-control,
+      .form-select {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding: 10px;
+        transition: border-color 0.3s;
+      }
+      .form-control:focus,
+      .form-select:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+      }
+      .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 12px;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: transform 0.2s, background-color 0.2s;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+      }
+      .result-box {
+        display: none;
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        text-align: center;
+        transition: all 0.3s;
+      }
+      .row {
+        row-gap: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Home Button -->
+      <div class="text-end mb-4">
+        <a href="/" class="btn btn-secondary">Home</a>
+      </div>
+      <h2 class="text-center">🏡 House Price Prediction</h2>
+      <form id="predictionForm">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <input
+              type="number"
+              class="form-control"
+              name="Area"
+              placeholder="Area (sq ft)"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <input
+              type="number"
+              class="form-control"
+              name="No. of Bedrooms"
+              placeholder="No. of Bedrooms"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" name="Location" required>
+              <option value="">-- Select Location --</option>
+              {% for loc in locations %}
+              <option value="{{ loc }}">{{ loc }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" name="Resale">
+              <option value="no">Resale: No</option>
+              <option value="yes">Resale: Yes</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" name="MaintenanceStaff">
+              <option value="no">Maintenance Staff: No</option>
+              <option value="yes">Maintenance Staff: Yes</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" name="Gymnasium">
+              <option value="no">Gymnasium: No</option>
+              <option value="yes">Gymnasium: Yes</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" name="24X7Security">
+              <option value="no">24X7 Security: No</option>
+              <option value="yes">24X7 Security: Yes</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" name="PowerBackup">
+              <option value="no">Power Backup: No</option>
+              <option value="yes">Power Backup: Yes</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" name="CarParking">
+              <option value="no">Car Parking: No</option>
+              <option value="yes">Car Parking: Yes</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" name="StaffQuarter">
+              <option value="no">Staff Quarter: No</option>
+              <option value="yes">Staff Quarter: Yes</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" name="AC">
+              <option value="no">AC: No</option>
+              <option value="yes">AC: Yes</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" name="Wifi">
+              <option value="no">Wifi: No</option>
+              <option value="yes">Wifi: Yes</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" name="Children'splayarea">
+              <option value="no">Children's Play Area: No</option>
+              <option value="yes">Children's Play Area: Yes</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" name="LiftAvailable">
+              <option value="no">Lift Available: No</option>
+              <option value="yes">Lift Available: Yes</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" name="BED">
+              <option value="no">BED: No</option>
+              <option value="yes">BED: Yes</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mt-4">
+          Predict Price
+        </button>
+      </form>
+      <div id="predictionResult" class="result-box"></div>
+    </div>
+
+    <script>
+      document
+        .getElementById("predictionForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          let formData = new FormData(this);
+          let formObject = {};
+          formData.forEach((value, key) => {
+            formObject[key] = value;
+          });
+
+          fetch("/predict", {
+            method: "POST",
+            body: new URLSearchParams(formObject),
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              let resultBox = document.getElementById("predictionResult");
+              if (data.predicted_price) {
+                resultBox.innerHTML = `Predicted Price: ${data.predicted_price}`;
+                resultBox.style.background = "#e9f7ef";
+                resultBox.style.color = "#28a745";
+                resultBox.style.border = "1px solid #28a745";
+              } else {
+                resultBox.innerHTML = `Error: ${data.error}`;
+                resultBox.style.background = "#f8d7da";
+                resultBox.style.color = "#dc3545";
+                resultBox.style.border = "1px solid #dc3545";
+              }
+              resultBox.style.display = "block";
+            })
+            .catch((error) => console.error("Error:", error));
+        });
+
+      const images = [
+        "{{ url_for('static', filename='house7.jpg') }}",
+        "{{ url_for('static', filename='house8.jpg') }}",
+        "{{ url_for('static', filename='house9.jpeg') }}",
+      ];
+
+      function changeBackground() {
+        const randomImage = images[Math.floor(Math.random() * images.length)];
+        document.body.style.backgroundImage = `url(${randomImage})`;
+      }
+
+      setInterval(changeBackground, 5000);
+      changeBackground();
+    </script>
+  </body>
+</html>

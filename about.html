@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - House Price Predictor</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: "Arial", sans-serif;
+      }
+      .navbar-brand {
+        font-weight: bold;
+      }
+      .container {
+        margin-top: 50px;
+        text-align: center;
+      }
+      .about-header {
+        margin-bottom: 40px;
+      }
+      .about-header h2 {
+        color: #333;
+        font-weight: bold;
+      }
+      .card-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+      }
+      .about-card {
+        width: 320px;
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+        cursor: default;
+      }
+      .about-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+      }
+      .card-header {
+        background-color: #007bff;
+        color: #fff;
+        padding: 15px;
+        font-size: 18px;
+        font-weight: bold;
+        border-bottom: 5px solid transparent;
+        transition: border-color 0.3s ease-in-out;
+      }
+      .about-card:hover .card-header {
+        border-bottom: 5px solid #0056b3;
+      }
+      .card-body {
+        padding: 15px;
+        text-align: left;
+      }
+      .card-body p {
+        color: #555;
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0;
+      }
+      .btn-primary {
+        margin-top: 40px;
+        padding: 12px 25px;
+        font-size: 18px;
+        border-radius: 8px;
+        font-weight: bold;
+        background-color: #007bff;
+        border: none;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">House Price Predictor</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/form">Predict</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/compare">Compare</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/feedback">Feedback</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- About Content -->
+    <div class="container">
+      <div class="about-header">
+        <h2>About the House Price Predictor</h2>
+      </div>
+      <div class="card-grid">
+        <div class="about-card">
+          <div class="card-header">Welcome</div>
+          <div class="card-body">
+            <p>
+              Welcome to the House Price Predictor, a cutting-edge tool designed
+              to help you estimate the value of houses across various cities.
+              This project was born out of a passion for data science and a
+              desire to make real estate insights accessible to everyone.
+            </p>
+          </div>
+        </div>
+
+        <div class="about-card">
+          <div class="card-header">The Journey</div>
+          <div class="card-body">
+            <p>
+              This project started with a dataset of over 35,000 house listings,
+              meticulously compiled from multiple cities. The data includes key
+              features like area, location, number of bedrooms, and amenities
+              such as gymnasiums, security, and lifts. Using Python and powerful
+              libraries like pandas and scikit-learn, I cleaned the
+              data—replacing invalid entries (e.g., '9' for missing features)
+              with meaningful values—and trained machine learning models to
+              predict house prices accurately.
+            </p>
+          </div>
+        </div>
+
+        <div class="about-card">
+          <div class="card-header">The Technology</div>
+          <div class="card-body">
+            <p>
+              The backbone of this predictor is a suite of machine learning
+              models, including Decision Trees, Random Forests, and Gradient
+              Boosting. After extensive cross-validation on a dataset scaled to
+              handle its massive size, the best-performing model was selected
+              and fine-tuned. The result? A robust system capable of delivering
+              precise price predictions in seconds. The web interface, built
+              with Flask and styled with Bootstrap, ensures a seamless and
+              visually appealing user experience.
+            </p>
+          </div>
+        </div>
+
+        <div class="about-card">
+          <div class="card-header">About the Creator</div>
+          <div class="card-body">
+            <p>
+              I'm a data enthusiast with a knack for turning raw numbers into
+              actionable insights. This project reflects my commitment to
+              leveraging technology for practical solutions. Whether you're a
+              homebuyer, seller, or just curious about real estate trends, I
+              hope this tool empowers you with the knowledge you need.
+            </p>
+          </div>
+        </div>
+
+        <div class="about-card">
+          <div class="card-header">Fun Fact</div>
+          <div class="card-body">
+            <p>
+              Did you know? The dataset grew from a humble 38 rows to over
+              35,000, pushing the boundaries of my analysis code. Thanks to
+              optimizations like chunked loading and parallel processing, it now
+              handles this scale effortlessly—proof that perseverance and a bit
+              of coding magic can go a long way!
+            </p>
+          </div>
+        </div>
+      </div>
+      <a href="/" class="btn btn-primary">Back to Home</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
