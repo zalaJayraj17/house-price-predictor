@@ -12,13 +12,14 @@
       body {
         font-family: "Arial", sans-serif;
         margin: 0;
+        overflow-x: hidden;
       }
       .navbar-brand {
         font-weight: bold;
       }
       .header-image {
-        background: url("https://via.placeholder.com/1200x400") no-repeat center
-          center;
+        background: url("{{ url_for('static', filename='couple.jpg') }}")
+          no-repeat center center;
         background-size: cover;
         height: 400px;
         position: relative;
@@ -35,9 +36,10 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 15px;
       }
       .header-overlay h1 {
-        font-size: 2.5rem;
+        font-size: clamp(1.5rem, 5vw, 2.5rem); /* Responsive font size */
         margin-bottom: 10px;
       }
       .nav-tabs {
@@ -47,10 +49,14 @@
         margin-top: -50px;
         position: relative;
         z-index: 10;
+        flex-wrap: wrap;
+        justify-content: center;
       }
       .nav-tabs .nav-link {
         color: #007bff;
         font-weight: bold;
+        font-size: 14px;
+        padding: 8px 12px;
       }
       .nav-tabs .nav-link.active {
         color: #fff;
@@ -97,9 +103,11 @@
         gap: 25px;
         margin-top: 40px;
         margin-bottom: 40px;
+        padding: 0 10px;
       }
       .house-card {
-        width: 320px;
+        width: 100%;
+        max-width: 320px;
         background: #ffffff;
         border-radius: 12px;
         overflow: hidden;
@@ -138,6 +146,76 @@
         font-size: 18px;
         border-radius: 8px;
         font-weight: bold;
+        transition: background-color 0.3s;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .navbar-nav {
+          text-align: center;
+        }
+        .header-image {
+          height: 300px;
+        }
+        .nav-tabs {
+          margin-top: -30px;
+          padding: 10px;
+        }
+        .search-bar {
+          padding: 10px;
+        }
+        .search-bar .input-group {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .search-bar .form-select,
+        .search-bar .form-control,
+        .search-bar .btn {
+          width: 100%;
+        }
+        .featured-card {
+          margin-bottom: 20px;
+        }
+        .house-grid {
+          flex-direction: column;
+          align-items: center;
+        }
+        .house-card {
+          width: 90%;
+          max-width: 350px;
+        }
+        .btn-primary {
+          font-size: 16px;
+          padding: 10px 20px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-brand {
+          font-size: 1.2rem;
+        }
+        .header-image {
+          height: 250px;
+        }
+        .nav-tabs .nav-link {
+          font-size: 12px;
+          padding: 6px 10px;
+        }
+        .featured-card img {
+          height: 120px;
+        }
+        .house-card img {
+          height: 180px;
+        }
+        .house-info h5 {
+          font-size: 1rem;
+        }
+        .house-info p {
+          font-size: 12px;
+        }
       }
     </style>
   </head>
@@ -182,10 +260,7 @@
     <!-- Header with Image and Tabs -->
     <div class="header-image">
       <div class="header-overlay">
-        <img
-          src="{{ url_for('static', filename='couple.jpg') }}"
-          alt="Modern Apartment"
-        />
+        <h1>Find Your Dream Home</h1>
         <ul class="nav nav-tabs">
           <li class="nav-item">
             <a class="nav-link active" href="#">Buy</a>
@@ -286,7 +361,7 @@
         <div class="col-md-4 mb-3">
           <div class="featured-card">
             <img
-              src="https://static.99acres.com/universalhp/img/ei.webp "
+              src="https://static.99acres.com/universalhp/img/ei.webp"
               alt="Explore Insights"
             />
             <h5>Explore Insights</h5>
@@ -299,7 +374,7 @@
     <div class="container">
       <h2 class="mb-4">🏡 Select a House to Predict its Price</h2>
       <div class="house-grid">
-        <div class="house-card" onclick="redirectToForm()">
+        <div class="house-card" onclick="redirectToForm('Modern Apartment')">
           <img
             src="{{ url_for('static', filename='house1.jpeg') }}"
             alt="Modern Apartment"
@@ -309,7 +384,7 @@
             <p>2BHK | 1200 sq. ft. | City View</p>
           </div>
         </div>
-        <div class="house-card" onclick="redirectToForm()">
+        <div class="house-card" onclick="redirectToForm('Luxury Villa')">
           <img
             src="{{ url_for('static', filename='house2.jpeg') }}"
             alt="Luxury Villa"
@@ -319,7 +394,7 @@
             <p>4BHK | 3000 sq. ft. | Garden & Pool</p>
           </div>
         </div>
-        <div class="house-card" onclick="redirectToForm()">
+        <div class="house-card" onclick="redirectToForm('Cozy Cottage')">
           <img
             src="{{ url_for('static', filename='house3.jpeg') }}"
             alt="Cozy Cottage"
@@ -329,7 +404,7 @@
             <p>3BHK | 1800 sq. ft. | Mountain View</p>
           </div>
         </div>
-        <div class="house-card" onclick="redirectToForm()">
+        <div class="house-card" onclick="redirectToForm('Beachside Bungalow')">
           <img
             src="{{ url_for('static', filename='house4.jpeg') }}"
             alt="Beachside Bungalow"
@@ -339,7 +414,7 @@
             <p>5BHK | 4000 sq. ft. | Oceanfront</p>
           </div>
         </div>
-        <div class="house-card" onclick="redirectToForm()">
+        <div class="house-card" onclick="redirectToForm('Elegant Penthouse')">
           <img
             src="{{ url_for('static', filename='house5.jpeg') }}"
             alt="Elegant Penthouse"
@@ -349,7 +424,7 @@
             <p>3BHK | 2500 sq. ft. | Skyline View</p>
           </div>
         </div>
-        <div class="house-card" onclick="redirectToForm()">
+        <div class="house-card" onclick="redirectToForm('Classic Townhouse')">
           <img
             src="{{ url_for('static', filename='house6.jpeg') }}"
             alt="Classic Townhouse"
