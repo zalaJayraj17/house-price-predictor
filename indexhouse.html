@@ -8,19 +8,25 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body {
-        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        background: url("{{ url_for('static', filename='house7.jpg') }}")
+          no-repeat center center/cover;
         min-height: 100vh;
         display: flex;
         align-items: center;
         padding: 20px;
         font-family: "Poppins", sans-serif;
         overflow-x: hidden;
+        transition: background-image 1s ease-in-out;
       }
       .container {
         max-width: 900px;
-        background: #fff;
+        background: rgba(255, 255, 255, 0.5); /* Lowered opacity */
         padding: 40px;
         border-radius: 15px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -33,7 +39,12 @@
         font-size: clamp(1.8rem, 5vw, 2.5rem);
       }
       .form-section {
-        background: #f8f9fa;
+        background: rgba(
+          248,
+          249,
+          250,
+          0.5
+        ); /* Lowered opacity for form sections */
         padding: 20px;
         border-radius: 10px;
         margin-bottom: 20px;
@@ -50,6 +61,12 @@
         padding: 12px;
         font-size: 1rem;
         transition: border-color 0.3s, box-shadow 0.3s;
+        background: rgba(
+          255,
+          255,
+          255,
+          0.7
+        ); /* Slightly opaque inputs for readability */
       }
       .form-control:focus,
       .form-select:focus {
@@ -85,6 +102,7 @@
         text-align: center;
         font-size: 1.2rem;
         transition: all 0.3s;
+        background: rgba(255, 255, 255, 0.9); /* Slightly opaque result box */
       }
 
       /* Responsive Adjustments */
@@ -286,6 +304,20 @@
             })
             .catch((error) => console.error("Error:", error));
         });
+
+      const images = [
+        "{{ url_for('static', filename='house7.jpg') }}",
+        "{{ url_for('static', filename='house8.jpg') }}",
+        "{{ url_for('static', filename='house9.jpeg') }}",
+      ];
+
+      function changeBackground() {
+        const randomImage = images[Math.floor(Math.random() * images.length)];
+        document.body.style.backgroundImage = `url(${randomImage})`;
+      }
+
+      setInterval(changeBackground, 5000);
+      changeBackground();
     </script>
   </body>
 </html>
